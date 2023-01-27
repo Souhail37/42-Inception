@@ -23,15 +23,33 @@ services:
       - data_db:/var/lib/mysql/
     networks:
       - nat
+  wordpress:
+    image: wordpress
+    build: ./requirements/wordpress
+    container_name: wordpress_ct
+    env_file:
+      - .env
+    restart: on-failure
+    ports:
+      - '9000:9000'
+    volumes:
+      - data_wp:/var/www/html
+    networks:
+      - nat
 
 volumes:
   data_db:
     driver: local
     driver_opts:
-      device: "/Users/sismaili/Desktop/Inception/srcs/data_db"
+      device: "/home/sismaili/data"
       type: none
       o: bind
-
+  data_wp:
+    driver: local
+    driver_opts:
+      device: "/home/sismaili/data"
+      type: none
+      o: bind
 networks:
   nat:
     driver: bridge
