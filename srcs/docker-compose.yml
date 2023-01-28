@@ -12,7 +12,14 @@ services:
   #   restart: on-failure
   mariadb:
     image: mariadb
-    build: ./requirements/mariadb
+    build: 
+      context: ./requirements/mariadb
+      args:
+        MYSQL_DATABASE: $MYSQL_DATABASE
+        MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+        MYSQL_USER: $MYSQL_USER
+        MYSQL_PASSWORD: $MYSQL_PASSWORD
+        MYSQL_HOST: $MYSQL_HOST
     container_name: mariadb
     env_file:
       - .env
@@ -25,8 +32,17 @@ services:
       - nat
   wordpress:
     image: wordpress
-    build: ./requirements/wordpress
-    container_name: wordpress_ct
+    build:
+      context: ./requirements/mariadb
+      args:
+        DOMAIN_NAME: $DOMAIN_NAME
+        ADMIN_USER: $ADMIN_USER
+        ADMIN_PASSWORD: $ADMIN_PASSWORD
+        ADMIN_EMAIL: $ADMIN_EMAIL
+        USER: $USER
+        USER_EMAIL: $USER_EMAIL
+        USER_PASSWORD: $USER_PASSWORD
+    container_name: wordpress
     env_file:
       - .env
     restart: on-failure

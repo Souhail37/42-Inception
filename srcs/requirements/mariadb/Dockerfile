@@ -8,6 +8,8 @@ RUN chmod +x /tmp/script.sh
 
 EXPOSE 3306
 
-ENTRYPOINT [ "/tmp/script.sh" ]
+RUN /tmp/script.sh
 
-CMD [ "mysqld" ]
+ENTRYPOINT [ "mysqld" ]
+
+# CMD [ "mysqld" ]
