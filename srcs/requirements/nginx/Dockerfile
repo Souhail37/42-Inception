@@ -1,6 +1,6 @@
-FROM debian
+FROM debian:buster
 
-RUN apt update && apt install nginx -y
+RUN apt-get update && apt-get install nginx -y
 
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 

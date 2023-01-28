@@ -20,7 +20,7 @@ services:
     ports:
       - '3306:3306'
     volumes:
-      - data_db:/var/lib/mysql/
+      - 'data_db:/var/lib/mysql/'
     networks:
       - nat
   wordpress:
@@ -33,21 +33,24 @@ services:
     ports:
       - '9000:9000'
     volumes:
-      - data_wp:/var/www/html
+      - 'data_wp:/var/www/html'
     networks:
       - nat
+    depends_on:
+      - mariadb
+
 
 volumes:
   data_db:
     driver: local
     driver_opts:
-      device: "/home/sismaili/data"
+      device: "/home/sismaili/data/db"
       type: none
       o: bind
   data_wp:
     driver: local
     driver_opts:
-      device: "/home/sismaili/data"
+      device: "/home/sismaili/data/wordpress"
       type: none
       o: bind
 networks:
