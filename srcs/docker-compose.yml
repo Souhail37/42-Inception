@@ -1,15 +1,21 @@
 version: '3'
 
 services:
-  # nginx:
-  #   image: nginx
-  #   build: ./requirements/nginx
-  #   container_name: nginx
-  #   env_file:
-  #     - .env
-  #   ports:
-  #     - 443:443
-  #   restart: on-failure
+  nginx:
+    image: nginx
+    build: ./requirements/nginx
+    container_name: nginx
+    env_file:
+      - .env
+    ports:
+      - '443:443'
+    depends_on:
+      - wordpress
+    restart: on-failure
+    volumes:
+      - 'wp:/var/www/html'
+    networks:
+      - nat
   mariadb:
     image: mariadb
     build: 
