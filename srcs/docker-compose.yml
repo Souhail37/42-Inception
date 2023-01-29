@@ -1,6 +1,36 @@
 version: '3'
 
 services:
+  mariadb:
+    image: mariadb
+    build: 
+      context: ./requirements/mariadb
+    container_name: mariadb
+    env_file:
+      - .env
+    restart: on-failure
+    ports:
+      - '3306:3306'
+    volumes:
+      - 'db:/var/lib/mysql/'
+    networks:
+      - nat
+  wordpress:
+    image: wordpress
+    build:
+      context: ./requirements/wordpress
+    container_name: wordpress
+    env_file:
+      - .env
+    restart: on-failure
+    ports:
+      - '9000:9000'
+    volumes:
+      - 'wp:/var/www/html'
+    networks:
+      - nat
+    depends_on:
+      - mariadb
   nginx:
     image: nginx
     build: ./requirements/nginx
@@ -16,50 +46,6 @@ services:
       - 'wp:/var/www/html'
     networks:
       - nat
-  mariadb:
-    image: mariadb
-    build: 
-      context: ./requirements/mariadb
-      args:
-        MYSQL_DATABASE: $MYSQL_DATABASE
-        MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-        MYSQL_USER: $MYSQL_USER
-        MYSQL_PASSWORD: $MYSQL_PASSWORD
-        MYSQL_HOST: $MYSQL_HOST
-    container_name: mariadb
-    env_file:
-      - .env
-    restart: on-failure
-    ports:
-      - '3306:3306'
-    volumes:
-      - 'db:/var/lib/mysql/'
-    networks:
-      - nat
-  wordpress:
-    image: wordpress
-    build:
-      context: ./requirements/mariadb
-      args:
-        DOMAIN_NAME: $DOMAIN_NAME
-        ADMIN_USER: $ADMIN_USER
-        ADMIN_PASSWORD: $ADMIN_PASSWORD
-        ADMIN_EMAIL: $ADMIN_EMAIL
-        USER: $USER
-        USER_EMAIL: $USER_EMAIL
-        USER_PASSWORD: $USER_PASSWORD
-    container_name: wordpress
-    env_file:
-      - .env
-    restart: on-failure
-    ports:
-      - '9000:9000'
-    volumes:
-      - 'wp:/var/www/html'
-    networks:
-      - nat
-    depends_on:
-      - mariadb
 
 
 volumes:
