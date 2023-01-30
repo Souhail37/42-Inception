@@ -3,22 +3,20 @@ version: '3'
 services:
   mariadb:
     image: mariadb
-    build: 
-      context: ./requirements/mariadb
+    build: ./requirements/mariadb
     container_name: mariadb
+    restart: on-failure
     env_file:
       - .env
-    restart: on-failure
+    volumes:
+      - 'db:/var/lib/mysql'
     ports:
       - '3306:3306'
-    volumes:
-      - 'db:/var/lib/mysql/'
     networks:
       - nat
   wordpress:
     image: wordpress
-    build:
-      context: ./requirements/wordpress
+    build: ./requirements/wordpress
     container_name: wordpress
     env_file:
       - .env
@@ -26,11 +24,11 @@ services:
     ports:
       - '9000:9000'
     volumes:
-      - 'wp:/var/www/html'
-    networks:
-      - nat
+      - 'wordpress:/var/www/html'
     depends_on:
       - mariadb
+    networks:
+      - nat
   nginx:
     image: nginx
     build: ./requirements/nginx
@@ -43,10 +41,9 @@ services:
       - wordpress
     restart: on-failure
     volumes:
-      - 'wp:/var/www/html'
+      - 'wordpress:/var/www/html'
     networks:
       - nat
-
 
 volumes:
   db:
@@ -55,7 +52,7 @@ volumes:
       device: "/home/sismaili/data/db"
       type: none
       o: bind
-  wp:
+  wordpress:
     driver: local
     driver_opts:
       device: "/home/sismaili/data/wordpress"
@@ -64,3 +61,4 @@ volumes:
 networks:
   nat:
     driver: bridge
+
