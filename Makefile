@@ -12,14 +12,11 @@
 
 all:
 	mkdir -p /home/sismaili/data/db
-	mkdir -p /home/sismaili/data/db
+	mkdir -p /home/sismaili/data/wordpress
 	docker compose -f ./srcs/docker-compose.yml up --build
 
 down:
 	docker compose -f ./srcs/docker-compose.yml down
-
-re: down
-	docker compose -f ./srcs/docker-compose.yml up -d --build
 
 clean: down
 	docker volume rm -f $$(docker volume ls)
@@ -28,5 +25,7 @@ clean: down
 fclean: down clean
 	sudo rm -rf /home/sismaili/data/db/*
 	sudo rm -rf /home/sismaili/data/wordpress/*
+
+re: fclean all
 
 .PHONY: all down re clean fclean
