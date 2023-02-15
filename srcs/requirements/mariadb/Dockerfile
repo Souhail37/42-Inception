@@ -8,7 +8,7 @@ RUN chmod +x /tmp/mariadb.sh
 
 EXPOSE 3306
 
-RUN /tmp/mariadb.sh >> error.txt
+RUN /tmp/mariadb.sh
 
 # ENTRYPOINT [ "/tmp/mariadb.sh" ]
 
