@@ -5,9 +5,9 @@ services:
     image: mariadb
     build: ./requirements/mariadb
     container_name: mariadb
-    restart: on-failure
     env_file:
       - .env
+    restart: on-failure
     volumes:
       - 'db:/var/lib/mysql'
     ports:

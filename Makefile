@@ -6,7 +6,7 @@
 #    By: sismaili <sismaili@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 16:17:28 by sismaili          #+#    #+#              #
-#    Updated: 2023/02/13 16:29:14 by sismaili         ###   ########.fr        #
+#    Updated: 2023/02/18 20:36:17 by sismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,10 +21,10 @@ down:
 clean: down
 	docker volume rm -f $$(docker volume ls)
 	docker network prune -f
-	docker image prune -fa
-fclean: down clean
 	rm -rf /Users/sismaili/Desktop/Inception/data/db/*
 	rm -rf /Users/sismaili/Desktop/Inception/data/wordpress/*
+fclean: down clean
+	docker image prune -fa
 
 re: fclean all
 

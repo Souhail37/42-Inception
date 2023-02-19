@@ -6,10 +6,11 @@ COPY ./tools/mariadb.sh /tmp/mariadb.sh
 
 RUN chmod +x /tmp/mariadb.sh
 
-EXPOSE 3306
-
 RUN /tmp/mariadb.sh
 
 # ENTRYPOINT [ "/tmp/mariadb.sh" ]
 
+EXPOSE 3306
+
 CMD [ "mysqld" ]
+

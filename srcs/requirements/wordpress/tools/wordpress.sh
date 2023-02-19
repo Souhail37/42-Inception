@@ -6,11 +6,8 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 	chmod +x wp-cli.phar
-
+	echo "Database: $MYSQL_DATABASE, User: $MYSQL_USER, Password: $MYSQL_PASSWORD" > ok.txt
 	mv wp-cli.phar /usr/bin/wp
-
-	# chown -R www-data:www-data /var/www/html/
-	# chmod -R 755 /var/www/html
 
 	cd /var/www/html
 
@@ -24,5 +21,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	wp config set DB_HOST $MYSQL_HOST --allow-root
 
 	wp core install --url=$DOMAIN_NAME --title="WordPress Site" --admin_user=$ADMIN_USER --admin_password=$ADMIN_PASSWORD --admin_email=$ADMIN_EMAIL --allow-root
-	wp user create $USER $USER_EMAIL --user_pass=$USER_PASSWORD role='author' --allow-root
+	wp user create $USER $USER_EMAIL --user_pass=$USER_PASSWORD --allow-root
 fi
+
+exec "$@"
