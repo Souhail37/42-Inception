@@ -49,13 +49,13 @@ volumes:
   db:
     driver: local
     driver_opts:
-      device: "/Users/sismaili/Desktop/Inception/data/db"
+      device: "/home/sismaili/data/db"
       type: none
       o: bind
   wordpress:
     driver: local
     driver_opts:
-      device: "/Users/sismaili/Desktop/Inception/data/wordpress"
+      device: "/home/sismaili/data/wordpress"
       type: none
       o: bind
 networks:

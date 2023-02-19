@@ -11,18 +11,18 @@
 # **************************************************************************** #
 
 all:
-	# mkdir -p /home/sismaili/data/db
-	# mkdir -p /home/sismaili/data/wordpress
-	docker-compose -f ./srcs/docker-compose.yml up --build
+	mkdir -p /home/sismaili/data/db
+	mkdir -p /home/sismaili/data/wordpress
+	docker compose -f ./srcs/docker-compose.yml up -d --build
 
 down:
-	docker-compose -f ./srcs/docker-compose.yml down
+	docker compose -f ./srcs/docker-compose.yml down
 
 clean: down
 	docker volume rm -f $$(docker volume ls)
 	docker network prune -f
-	rm -rf /Users/sismaili/Desktop/Inception/data/db/*
-	rm -rf /Users/sismaili/Desktop/Inception/data/wordpress/*
+	sudo rm -rf /home/sismaili/data/db/*
+	sudo rm -rf /home/sismaili/data/wordpress/*
 fclean: down clean
 	docker image prune -fa
 

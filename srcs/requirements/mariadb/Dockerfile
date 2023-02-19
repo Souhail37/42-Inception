@@ -8,8 +8,6 @@ RUN chmod +x /tmp/mariadb.sh
 
 RUN /tmp/mariadb.sh
 
-# ENTRYPOINT [ "/tmp/mariadb.sh" ]
-
 EXPOSE 3306
 
 CMD [ "mysqld" ]
