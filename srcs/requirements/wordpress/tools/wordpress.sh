@@ -1,12 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
-sed -i '36 s/\/run\/php\/php7.3-fpm.sock/9000/' /etc/php/7.3/fpm/pool.d/www.conf
+sed -i 's/\/run\/php\/php7.3-fpm.sock/9000/' /etc/php/7.3/fpm/pool.d/www.conf
 
 if [ ! -f /var/www/html/wp-config.php ]; then
 	curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 	chmod +x wp-cli.phar
-	echo "Database: $MYSQL_DATABASE, User: $MYSQL_USER, Password: $MYSQL_PASSWORD" > ok.txt
 	mv wp-cli.phar /usr/bin/wp
 
 	cd /var/www/html

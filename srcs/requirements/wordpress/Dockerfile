@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install php php7.3-fpm php-mysql curl -y
 
 RUN mkdir /run/php/
 
-COPY ./tools/wordpress.sh /tmp/wordpress.sh
+COPY ./tools/wordpress.sh /tmp
 
 RUN chmod +x /tmp/wordpress.sh
 
