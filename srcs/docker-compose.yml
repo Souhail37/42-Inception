@@ -44,6 +44,17 @@ services:
       - 'wordpress:/var/www/html'
     networks:
       - net
+  redis:
+    image: redis
+    build: ./requirements/bonus/redis
+    container_name: redis
+    restart: on-failure
+    depends_on:
+      - mariadb
+    ports:
+      - '6379:6379'
+    networks:
+      - net
 
 volumes:
   db:
