@@ -8,8 +8,6 @@ RUN chmod +x /tmp/redis.sh
 
 RUN /tmp/redis.sh
 
-RUN service redis-server restart
-
 EXPOSE 6379
 
-CMD [ "redis-server"]
+CMD [ "redis-server", "--protected-mode", "no"]
