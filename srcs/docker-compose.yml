@@ -49,10 +49,17 @@ services:
     build: ./requirements/bonus/redis
     container_name: redis
     restart: on-failure
-    depends_on:
-      - mariadb
     ports:
       - '6379:6379'
+    networks:
+      - net
+  adminer:
+    image: adminer
+    build: ./requirements/bonus/adminer
+    container_name: adminer
+    restart: on-failure
+    ports:
+      - '8080:80'
     networks:
       - net
 

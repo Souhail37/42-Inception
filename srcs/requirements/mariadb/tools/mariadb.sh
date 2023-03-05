@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MYSQL_DATABASE=wordpress_db
-MYSQL_USER=souhail
+MYSQL_USER=sismaili
 MYSQL_PASSWORD=password123
 MYSQL_ROOT_PASSWORD=rootpassword
 
