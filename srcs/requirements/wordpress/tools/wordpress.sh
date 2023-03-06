@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo test $MYSQL_DATABASE
+
 sed -i 's/\/run\/php\/php7.3-fpm.sock/9000/' /etc/php/7.3/fpm/pool.d/www.conf
 
 if [ ! -f /var/www/html/wp-config.php ]; then
